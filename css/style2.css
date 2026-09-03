@@ -1,0 +1,65 @@
+.fondo {
+    background-color: #110124;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.personal {
+    background-image: url('../personal/portda.jpeg');
+    color: white;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+}
+
+.mensaje {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: xx-large;
+}
+
+.acerca {
+    background-image: url('../personal/fondo 2.jpeg');
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 60vh;
+    padding: 20px;
+    color: white;
+}
+
+.logo {
+    max-width: 100%;
+}
+
+.info {
+    color: white;
+    background-image: url('../personal/fondo 3.jpeg');
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 90vh;
+    padding: 20px;
+}
+
+.cards{
+    width: 300px;
+    border-radius: 25px;
+    box-shadow: 0 5px 5px black;
+}
+
+.footer {
+    background-image: url('../personal/fondo 3.jpeg');
+    background-position: end;
+    background-size: cover;
+    color: white;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
