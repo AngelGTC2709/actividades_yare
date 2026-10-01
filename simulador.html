@@ -9,26 +9,77 @@
 </head>
 <body>
     <script>
-            /*alert("simulador con java script");
-            let cantidad=prompt("ingrese la cantidad de productos a comprar",20);
-            alert(`la cantidad de productos a comprar es: ${cantidad}`);
-            let respuesta=confirm("continuar con la compra?");
-            alert(respuesta);*/
-            let nombre=prompt("ingrese el nombre del producto");
-            let cantidad=prompt("ingrese la cantidad de productos a comprar");
-            let precio=prompt("ingrese el precio del producto");
-            
-            let subtotal=precio*cantidad;
-            let descuento=subtotal*0.10;
-            let totaldes=subtotal-descuento;
+        //     /*alert("simulador con java script");
+        //     let cantidad=prompt("ingrese la cantidad de productos a comprar",20);
+        //     alert(`la cantidad de productos a comprar es: ${cantidad}`);
+        //     let respuesta=confirm("continuar con la compra?");
+        //     alert(respuesta);*/
+        // let x = Number(prompt("¿Cuántos productos distintos desea adquirir?"));
 
-            alert(`el nombre del producto es: ${nombre} \n
-             la cantidad de productos a comprar es: ${cantidad} \n 
-             el precio del producto es: ${precio} \n 
-             el subtotal es: ${subtotal} \n 
-             el descuento es: ${descuento} \n 
-             el total con descuento es: ${totaldes}`);
-             
+        // let subtotalGeneral = 0;
+
+        // for (let i = 0; i < x; i++) {
+        //     let nombre = prompt("Ingrese el nombre del producto " + (i + 1));
+        //     let cantidad = prompt("Ingrese la cantidad de " + nombre);
+        //     let precio = prompt("Ingrese el precio unitario de " + nombre);
+
+        //     let costoProducto = cantidad * precio;
+
+        //     if (nombre === "martillo" || nombre === "tornillo") {
+        //         costoProducto = costoProducto * 0.5;
+        //     }
+
+        //     subtotalGeneral = subtotalGeneral + costoProducto;
+        // }
+
+        // let descuentoAdicional = 0;
+        // let totalPagar = subtotalGeneral;
+
+        // if (subtotalGeneral > 10000) {
+        //     descuentoAdicional = subtotalGeneral * 0.10;
+        //     totalPagar = subtotalGeneral - descuentoAdicional;
+        // } else {
+        //     descuentoAdicional = 0;
+        //     totalPagar = subtotalGeneral;
+        // }
+
+        // alert("Subtotal: $" + subtotalGeneral + "\nDescuento: $" + descuentoAdicional + "\nTotal a pagar: $" + totalPagar);
+        let producto,cantidad,precio,tipoCliente,descuentoProducto,subtotal,totalCompra,descuentoFrecuente,envio,totalPagar;
+        function calcularTotal() {
+            producto = document.getElementById('producto').value;
+            cantidad = document.getElementById('cantidad').value;
+            precio = document.getElementById('precio').value;
+            tipoCliente = document.getElementById('tipoCliente').value;
+
+            if (tipoCliente !== 'normal' && tipoCliente !== 'frecuente') {
+                alert('Escribe "normal" o "frecuente" como tipo de cliente.');
+                return;
+            }
+            descuentoProducto = 0;
+            subtotal = cantidad * precio;
+
+            switch (producto) {
+                case 'clavos': descuentoProducto = subtotal * 0.3; break;
+                case 'martillo': descuentoProducto = subtotal * 0.4; break;
+                case 'papas': descuentoProducto = subtotal * 0.5; break;
+            }
+
+            totalCompra = subtotal - descuentoProducto;
+            descuentoFrecuente = 0;
+
+            if (tipoCliente === 'frecuente') {
+                descuentoFrecuente = totalCompra * 0.05;
+                totalCompra = totalCompra - descuentoFrecuente;
+            }
+
+            envio = 150;
+            if (totalCompra > 5000) {
+                envio = 0;
+            }
+
+            totalPagar = totalCompra + envio;
+            alert(`Subtotal: $${subtotal}\nDescuento del producto: $${descuentoProducto}\nDescuento de cliente frecuente: $${descuentoFrecuente}\nEnvío: ${envio === 0 ? 'Gratis' : '$' + envio}\nTotal a pagar: $${totalPagar}`);
+        }
     </script>
     <header>
         <div class="container text-center">
@@ -54,7 +105,15 @@
                 <label for="cantidad" class="form-label">cantidad</label>
                 <input type="number" class="form-control" id="cantidad">
             </div>
-            <button type="submit" class="btn btn-primary">calcular</button>
+            <div class="col-mb-6">
+                <label for="precio" class="form-label">precio</label>
+                <input type="number" class="form-control" id="precio">
+            </div>
+            <div class="col-mb-3">
+                <label for="tipoCliente" class="form-label">tipo de cliente (normal o frecuente)</label>
+                <input type="text" class="form-control" id="tipoCliente" >
+            </div>
+            <button type="button" class="btn btn-primary" onclick="calcularTotal()">calcular</button>
         </div>
     </form>
 
