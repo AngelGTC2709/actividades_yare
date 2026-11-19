@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<usuarios>
+    <usuario>
+        <noUsuario>1</noUsuario>
+        <nombre>Ana</nombre>
+        <apellidoP>García</apellidoP>
+        <apellidoM>López</apellidoM>
+        <correo>ana.garcia@example.com</correo>
+        <pais>México</pais>
+    </usuario>
+    <usuario>
+        <noUsuario>2</noUsuario>
+        <nombre>Carlos</nombre>
+        <apellidoP>Ramírez</apellidoP>
+        <apellidoM>Torres</apellidoM>
+        <correo>carlos.ramirez@example.com</correo>
+        <pais>México</pais>
+    </usuario>
+</usuarios>
