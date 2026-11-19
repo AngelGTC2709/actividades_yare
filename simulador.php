@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>simulador</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <script>
+        //     /*alert("simulador con java script");
+        //     let cantidad=prompt("ingrese la cantidad de productos a comprar",20);
+        //     alert(`la cantidad de productos a comprar es: ${cantidad}`);
+        //     let respuesta=confirm("continuar con la compra?");
+        //     alert(respuesta);*/
+        // let x = Number(prompt("¿Cuántos productos distintos desea adquirir?"));
+
+        // let subtotalGeneral = 0;
+
+        // for (let i = 0; i < x; i++) {
+        //     let nombre = prompt("Ingrese el nombre del producto " + (i + 1));
+        //     let cantidad = prompt("Ingrese la cantidad de " + nombre);
+        //     let precio = prompt("Ingrese el precio unitario de " + nombre);
+
+        //     let costoProducto = cantidad * precio;
+
+        //     if (nombre === "martillo" || nombre === "tornillo") {
+        //         costoProducto = costoProducto * 0.5;
+        //     }
+
+        //     subtotalGeneral = subtotalGeneral + costoProducto;
+        // }
+
+        // let descuentoAdicional = 0;
+        // let totalPagar = subtotalGeneral;
+
+        // if (subtotalGeneral > 10000) {
+        //     descuentoAdicional = subtotalGeneral * 0.10;
+        //     totalPagar = subtotalGeneral - descuentoAdicional;
+        // } else {
+        //     descuentoAdicional = 0;
+        //     totalPagar = subtotalGeneral;
+        // }
+
+        // alert("Subtotal: $" + subtotalGeneral + "\nDescuento: $" + descuentoAdicional + "\nTotal a pagar: $" + totalPagar);
+        let producto,cantidad,precio,tipoCliente,descuentoProducto,subtotal,totalCompra,descuentoFrecuente,envio,totalPagar;
+        function calcularTotal() {
+            producto = document.getElementById('producto').value;
+            cantidad = document.getElementById('cantidad').value;
+            precio = document.getElementById('precio').value;
+            tipoCliente = document.getElementById('tipoCliente').value;
+
+            if (tipoCliente !== 'normal' && tipoCliente !== 'frecuente') {
+                alert('Escribe "normal" o "frecuente" como tipo de cliente.');
+                return;
+            }
+            descuentoProducto = 0;
+            subtotal = cantidad * precio;
+
+            switch (producto) {
+                case 'clavos': descuentoProducto = subtotal * 0.3; break;
+                case 'martillo': descuentoProducto = subtotal * 0.4; break;
+                case 'papas': descuentoProducto = subtotal * 0.5; break;
+            }
+
+            totalCompra = subtotal - descuentoProducto;
+            descuentoFrecuente = 0;
+
+            if (tipoCliente === 'frecuente') {
+                descuentoFrecuente = totalCompra * 0.05;
+                totalCompra = totalCompra - descuentoFrecuente;
+            }
+
+            envio = 150;
+            if (totalCompra > 5000) {
+                envio = 0;
+            }
+
+            totalPagar = totalCompra + envio;
+            alert(`Subtotal: $${subtotal}\n
+            Descuento del producto: $${descuentoProducto}\n
+            Descuento de cliente frecuente: $${descuentoFrecuente}\n
+            Envío: ${envio === 0 ? 'Gratis' : '$' + envio}\n
+            Total a pagar: $${totalPagar}`);
+        }
+    </script>
+    <header>
+        <div class="container text-center">
+            <div class="row align-items-start">
+                <div class="col-1">
+                    <img src="image/Gemini_Generated_Image_ny2ygany2ygany2y-removebg-preview.png" alt="Logo" class="logo">
+                </div>
+                <div class="col-11">
+                    <h1>Fereteria A</h1>
+                </div>
+            </div>
+        </div>
+        <img src="image/6d629f593d9b985ba4139c0b96dd9da2.jpg" alt="fondo" class="fondo_encabezado">
+    </header>
+
+    <form action="https://formsubmit.co/gaancruz19@gmail.com" method="POST"  class="container text-center" >
+        <div class="row">    
+            <div class="col-mb-6">
+                <label for="producto" class="form-label">producto</label>
+                <input type="text" class="form-control" id="producto" name="producto">
+            </div>
+            <div class="col-mb-6">
+                <label for="cantidad" class="form-label">cantidad</label>
+                <input type="number" class="form-control" id="cantidad" name="cantidad">
+            </div>
+            <div class="col-mb-6">
+                <label for="precio" class="form-label">precio</label>
+                <input type="number" class="form-control" id="precio" name="precio">
+            </div>
+            <div class="col-mb-3">
+                <label for="tipoCliente" class="form-label">tipo de cliente (normal o frecuente)</label>
+                <input type="text" class="form-control" id="tipoCliente" name="tipoCliente">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="calcularTotal()">calcular</button>
+        </div>
+    </form>
+
+    <footer class="pie">
+        <div class="container text-center">
+            <div class="row align-items-start">
+                <div class="col-9" >
+                    <h2>Sitio desarrollado por Angel Gabriel Tepetzinta Cruz Derechos reservados 2026</h2>
+                    <a href="docs/politicaPrivacidad.pdf" target="_blank">Política de Privacidad</a>
+                    <a href="docs/avisoLegal.pdf" target="_blank">Aviso Legal</a>
+                </div>
+                <div class="col-1">
+                    <a href="https://wa.me/1234567890" target="_blank">
+                        <img src="image/cosmos_1355080033-removebg-preview.png" alt="whatsapp" class="logos">
+                    </a>
+                </div>
+                <div class="col-1">
+                    <a href="https://www.instagram.com" target="_blank">
+                        <img src="image/cosmos_1522768451-removebg-preview.png" alt="instagram" class="logos">
+                    </a>
+                </div>
+                <div class="col-1">
+                    <a href="https://www.facebook.com" target="_blank">
+                        <img src="image/cosmos_836917702-removebg-preview.png" alt="facebook" class="logos">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

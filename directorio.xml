@@ -1,0 +1,25 @@
+<?xmk version "1.0"?>
+<directorio>
+
+<entrada>
+    <apellido>ceno</apellido>
+    <nombre>bueno</nombre>
+    <fechanacimineto/>
+    <direccion/>
+</entrada>
+
+<entrada>
+    <apellido>coseno</apellido>
+    <nombre>bonito</nombre>
+    <fechanacimineto/>
+    <direccion/>
+</entrada>
+
+<entrada>
+    <apellido>tangente</apellido>
+    <nombre>barato</nombre>
+    <fechanacimineto/>
+    <direccion/>
+</entrada>
+
+</directorio>
