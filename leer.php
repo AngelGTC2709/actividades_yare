@@ -1,31 +1,17 @@
 <?php
-require 'conexion.php';
+include 'conexion.php';
 
-$errorConsulta = false;
 try {
-    $stmt = $conexion->prepare(
-        'SELECT noUsuario, nombre, apellidoP, apelllidoM AS apellidoM, correo, pais
-         FROM usuario
-         ORDER BY noUsuario DESC'
-    );
+    $sql = "SELECT noUsuario, nombre, apellidoP, apelllidoM, correo, pais
+            FROM usuario";
+    $stmt = $conexion->prepare($sql);
     $stmt->execute();
+
+
     $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log('No se pudo consultar la lista de usuarios: ' . $e->getMessage());
-    if (defined('APP_DEBUG') && APP_DEBUG) {
-        http_response_code(500);
-        echo '<!DOCTYPE html><html lang="es"><meta charset="UTF-8"><title>Error de consulta</title>'
-            . '<body><h1>Error al consultar usuarios</h1><pre>'
-            . htmlspecialchars($e->getMessage(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')
-            . '</pre><p><a href="contacto.html">Volver al registro</a></p></body></html>';
-        exit;
-    }
-    http_response_code(500);
-    $errorConsulta = true;
-    $usuarios = [];
-}
-if (isset($_GET['exportar']) && $_GET['exportar'] === 'xml') {
-    try {
+
+    if (isset($_GET['xml'])) {
+
         $xml = new DOMDocument('1.0', 'UTF-8');
         $xml->formatOutput = true;
 
@@ -45,22 +31,15 @@ if (isset($_GET['exportar']) && $_GET['exportar'] === 'xml') {
             }
         }
 
-
         header('Content-Type: application/xml; charset=UTF-8');
         header('Content-Disposition: attachment; filename="usuarios.xml"');
         echo $xml->saveXML();
         exit;
-    } catch (Exception $e) {
-        error_log('No se pudo generar el XML de usuarios: ' . $e->getMessage());
-        http_response_code(500);
-        echo 'Error al generar el archivo XML.';
-        exit;
     }
-}
-
-function escapar(string $valor): string
-{
-    return htmlspecialchars($valor, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo "Error al consultar la base de datos.";
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -72,79 +51,41 @@ function escapar(string $valor): string
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
-<body>
+<>
     <header>
         <div class="container text-center">
             <div class="row align-items-start">
-                <div class="col-1">
-                    <img src="image/Gemini_Generated_Image_ny2ygany2ygany2y-removebg-preview.png" alt="Logo" class="logo">
-                </div>
-                <div class="col-11">
-                    <h1>Fereteria A</h1>
-                </div>
+                <div class="col-1"><img src="image/Gemini_Generated_Image_ny2ygany2ygany2y-removebg-preview.png" alt="Logo" class="logo"></div>
+                <div class="col-11"><h1>Fereteria A</h1></div>
             </div>
         </div>
         <img src="image/6d629f593d9b985ba4139c0b96dd9da2.jpg" alt="Fondo de la ferretería" class="fondo_encabezado">
-        <nav class="container text-center py-3" aria-label="Navegación principal">
+        <nav class="container text-center py-3">
             <a class="btn btn-sm" href="index.html">Inicio</a>
             <a class="btn btn-sm" href="contacto.html">Registrar usuario</a>
             <a class="btn btn-sm" href="leer.php">Consultar usuarios</a>
-            <a class="btn btn-sm" href="editar.php">Editar usuario</a>
-            <a class="btn btn-sm" href="eliminar.php">Eliminar usuario</a>
         </nav>
     </header>
 
     <main class="container my-4">
         <h2>Usuarios registrados</h2>
-        <?php if (isset($_GET['registro']) && $_GET['registro'] === 'exitoso') { ?>
-            <div class="alert alert-success" role="status">Usuario registrado correctamente.</div>
-        <?php } ?>
-        <?php
-        $avisos = [
-            'actualizado' => ['success', 'Usuario actualizado correctamente.'],
-            'eliminado' => ['success', 'Usuario eliminado correctamente.'],
-            'no_encontrado' => ['danger', 'El usuario ya no existe.'],
-            'relacionado' => ['danger', 'No se pudo eliminar: el usuario tiene registros relacionados.'],
-            'error' => ['danger', 'No se pudo completar la operación. Inténtalo de nuevo más tarde.'],
-        ];
-        $estado = $_GET['estado'] ?? '';
-        if (is_string($estado) && isset($avisos[$estado])) {
-        ?>
-            <div class="alert alert-<?= $avisos[$estado][0] ?>" role="status"><?= escapar($avisos[$estado][1]) ?></div>
-        <?php } ?>
-        <?php if ($errorConsulta) { ?>
-            <div class="alert alert-danger" role="alert">No se pudo cargar la lista de usuarios. Inténtalo de nuevo más tarde.</div>
-        <?php } elseif ($usuarios === []) { ?>
-            <p>Aún no hay usuarios registrados.</p>
-        <?php } else { ?>
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered align-middle">
-                    <thead>
-                        <tr>
-                            <th scope="col">No. usuario</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido paterno</th>
-                            <th scope="col">Apellido materno</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">País</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($usuarios as $usuario) { ?>
-                            <tr>
-                                <td><?= escapar((string) $usuario['noUsuario']) ?></td>
-                                <td><?= escapar((string) $usuario['nombre']) ?></td>
-                                <td><?= escapar((string) $usuario['apellidoP']) ?></td>
-                                <td><?= escapar((string) ($usuario['apellidoM'] ?? '')) ?></td>
-                                <td><?= escapar((string) $usuario['correo']) ?></td>
-                                <td><?= escapar((string) $usuario['pais']) ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php } ?>
-        <a href="contacto.html" class="btn">Registrar usuario</a>
+        <table border="1">
+            <tr>
+                <th>ID</th> <th>Nombre Completo</th> <th>Correo</th> <th>Acciones</th>
+            </tr>
+            <?php foreach ($usuarios as $user) { ?>
+                <tr>
+                    <td><?php echo $user['noUsuario']; ?></td>
+                    <td><?php echo $user['nombre'] . ' ' . $user['apellidoP']; ?></td>
+                    <td><?php echo $user['correo']; ?></td>
+                    <td>
+                        <!-- Enlaces para Editar y Eliminar -->
+                        <a href="editar.php?id=<?php echo $user['noUsuario']; ?>">Editar</a>
+                        <a href="eliminar.php?id=<?php echo $user['noUsuario']; ?>">Eliminar</a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
     </main>
 
     <footer class="pie">
@@ -152,40 +93,23 @@ function escapar(string $valor): string
             <div class="row align-items-start">
                 <div class="col-9">
                     <h2>Sitio desarrollado por Angel Gabriel Tepetzinta Cruz Derechos reservados 2026</h2>
-                    <a href="docs/politicaPrivacidad.pdf" target="_blank" rel="noopener">Política de Privacidad</a>
-                    <a href="docs/avisoLegal.pdf" target="_blank" rel="noopener">Aviso Legal</a>
+                    <a href="docs/politicaPrivacidad.pdf" target="_blank">Política de Privacidad</a>
+                    <a href="docs/avisoLegal.pdf" target="_blank">Aviso Legal</a>
                 </div>
-                <div class="col-1">
-                    <a href="https://wa.me/1234567890" target="_blank" rel="noopener">
-                        <img src="image/cosmos_1355080033-removebg-preview.png" alt="WhatsApp" class="logos">
-                    </a>
-                </div>
-                <div class="col-1">
-                    <a href="https://www.instagram.com" target="_blank" rel="noopener">
-                        <img src="image/cosmos_1522768451-removebg-preview.png" alt="Instagram" class="logos">
-                    </a>
-                </div>
-                <div class="col-1">
-                    <a href="https://www.facebook.com" target="_blank" rel="noopener">
-                        <img src="image/cosmos_836917702-removebg-preview.png" alt="Facebook" class="logos">
-                    </a>
-                </div>
+                <div class="col-1"><a href="https://wa.me/1234567890" target="_blank"><img src="image/cosmos_1355080033-removebg-preview.png" alt="WhatsApp" class="logos"></a></div>
+                <div class="col-1"><a href="https://www.instagram.com" target="_blank"><img src="image/cosmos_1522768451-removebg-preview.png" alt="Instagram" class="logos"></a></div>
+                <div class="col-1"><a href="https://www.facebook.com" target="_blank"><img src="image/cosmos_836917702-removebg-preview.png" alt="Facebook" class="logos"></a></div>
             </div>
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <?php if (!$errorConsulta) { ?>
     <script>
-        window.addEventListener('load', function () {
+        window.onload = function () {
             const enlace = document.createElement('a');
-            enlace.href = 'leer.php?exportar=xml';
+            enlace.href = 'leer.php?xml=1';
             enlace.download = 'usuarios.xml';
-            enlace.style.display = 'none';
-            document.body.appendChild(enlace);
             enlace.click();
-            enlace.remove();
-        });
+        };
     </script>
-    <?php } ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>

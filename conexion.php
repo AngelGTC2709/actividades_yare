@@ -1,23 +1,20 @@
 <?php
-
+// 1. Datos de conexión de MySQL (sustituir por los del hosting)
 $host = "sql308.infinityfree.com";
 $db   = "if0_43168135_ferreteria";
 $user = "if0_43168135";
 $pass = "krwaSNEiOieaYO";
 
+// 2. Crear la conexión PDO y configurar el manejo de errores
 try {
-    $conexion = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $conexion = new PDO(
+        "mysql:host=$host;dbname=$db;charset=utf8mb4",
+        $user,
+        $pass
+    );
+
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    error_log('Error de conexión a la base de datos: ' . $e->getMessage());
-    http_response_code(500);
-    if (APP_DEBUG) {
-        echo '<pre>Error de conexión: '
-            . htmlspecialchars($e->getMessage(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')
-            . '</pre>';
-    } else {
-        echo 'No se pudo conectar con la base de datos.';
-    }
-    exit();
+    echo "Error de conexión: " . $e->getMessage();
 }
 ?>
