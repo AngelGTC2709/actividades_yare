@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xmk version="1.0"?>
 <mensajes>
-    <mensaje>
+    <entrada>
         <noMensaje>1</noMensaje>
         <noUsuario>1</noUsuario>
         <mensaje>¿Cuál es el horario de atención?</mensaje>
-    </mensaje>
-    <mensaje>
+    </entrada>
+    <entrada>
         <noMensaje>2</noMensaje>
         <noUsuario>2</noUsuario>
         <mensaje>Quisiera información sobre herramientas.</mensaje>
-    </mensaje>
+    </entrada>
 </mensajes>

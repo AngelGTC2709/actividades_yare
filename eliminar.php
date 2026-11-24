@@ -72,11 +72,11 @@ function escapar(string $valor): string
         </div>
         <img src="image/6d629f593d9b985ba4139c0b96dd9da2.jpg" alt="Fondo de la ferretería" class="fondo_encabezado">
         <nav class="container text-center py-3" aria-label="Navegación principal">
-            <a class="btn btn-light btn-sm" href="index.html">Inicio</a>
-            <a class="btn btn-light btn-sm" href="contacto.html">Registrar usuario</a>
-            <a class="btn btn-light btn-sm" href="leer.php">Consultar usuarios</a>
-            <a class="btn btn-light btn-sm" href="editar.php">Editar usuario</a>
-            <a class="btn btn-light btn-sm" href="eliminar.php">Eliminar usuario</a>
+            <a class="btn btn-sm" href="index.html">Inicio</a>
+            <a class="btn btn-sm" href="contacto.html">Registrar usuario</a>
+            <a class="btn btn-sm" href="leer.php">Consultar usuarios</a>
+            <a class="btn btn-sm" href="editar.php">Editar usuario</a>
+            <a class="btn btn-sm" href="eliminar.php">Eliminar usuario</a>
         </nav>
     </header>
     <main class="container my-4">
@@ -92,8 +92,8 @@ function escapar(string $valor): string
                 <input class="form-control" type="number" id="id" name="id" min="1" value="<?= $id === null ? '' : escapar((string) $id) ?>" required>
             </div>
             <div class="col-12">
-                <button class="btn btn-danger" type="submit">Eliminar usuario</button>
-                <a class="btn btn-outline-primary" href="leer.php">Consultar usuarios</a>
+                <button class="btn" type="submit">Eliminar usuario</button>
+                <a class="btn" href="leer.php">Consultar usuarios</a>
             </div>
         </form>
     </main>

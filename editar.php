@@ -59,11 +59,11 @@ function escapar(string $valor): string
         </div>
         <img src="image/6d629f593d9b985ba4139c0b96dd9da2.jpg" alt="Fondo de la ferretería" class="fondo_encabezado">
         <nav class="container text-center py-3" aria-label="Navegación principal">
-            <a class="btn btn-light btn-sm" href="index.html">Inicio</a>
-            <a class="btn btn-light btn-sm" href="contacto.html">Registrar usuario</a>
-            <a class="btn btn-light btn-sm" href="leer.php">Consultar usuarios</a>
-            <a class="btn btn-light btn-sm" href="editar.php">Editar usuario</a>
-            <a class="btn btn-light btn-sm" href="eliminar.php">Eliminar usuario</a>
+            <a class="btn btn-sm" href="index.html">Inicio</a>
+            <a class="btn btn-sm" href="contacto.html">Registrar usuario</a>
+            <a class="btn btn-sm" href="leer.php">Consultar usuarios</a>
+            <a class="btn btn-sm" href="editar.php">Editar usuario</a>
+            <a class="btn btn-sm" href="eliminar.php">Eliminar usuario</a>
         </nav>
     </header>
     <main class="container my-4">
@@ -79,7 +79,7 @@ function escapar(string $valor): string
                 <input class="form-control" type="number" id="buscar-id" name="id" min="1" value="<?= $id === null ? '' : escapar((string) $id) ?>" required>
             </div>
             <div class="col-12">
-                <button class="btn btn-outline-primary" type="submit">Buscar usuario</button>
+                <button class="btn" type="submit">Buscar usuario</button>
             </div>
         </form>
         <?php if ($error !== null) { ?>
@@ -110,8 +110,8 @@ function escapar(string $valor): string
                 <input class="form-control" type="text" id="pais" name="pais" maxlength="50" value="<?= escapar((string) $usuario['pais']) ?>" required>
             </div>
             <div class="col-12">
-                <button class="btn btn-primary" type="submit">Guardar cambios</button>
-                <a class="btn btn-outline-primary" href="editar.php">Cancelar</a>
+                <button class="btn" type="submit">Guardar cambios</button>
+                <a class="btn " href="editar.php">Cancelar</a>
             </div>
         </form>
         <?php } ?>

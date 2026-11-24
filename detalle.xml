@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xmk version="1.0" ?>
 <detalles>
-    <detalle>
+    <entrada>
         <noDetalle>1</noDetalle>
         <noPedido>1</noPedido>
         <noProducto>1</noProducto>
         <cantidadCompra>2</cantidadCompra>
-    </detalle>
-    <detalle>
+    </entrada>
+    <entrada>
         <noDetalle>2</noDetalle>
         <noPedido>2</noPedido>
         <noProducto>2</noProducto>
         <cantidadCompra>1</cantidadCompra>
-    </detalle>
+    </entrada>
 </detalles>

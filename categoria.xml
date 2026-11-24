@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xmk version="1.0" ?>
 <categorias>
-    <categoria>
+    <entrada>
         <noCategoria>1</noCategoria>
         <nombre>Herramientas</nombre>
         <descripcion>Herramientas manuales y eléctricas.</descripcion>
-    </categoria>
-    <categoria>
+    </entrada>
+    <entrada>
         <noCategoria>2</noCategoria>
         <nombre>Materiales</nombre>
         <descripcion>Materiales y accesorios de construcción.</descripcion>
-    </categoria>
+    </entrada>
 </categorias>

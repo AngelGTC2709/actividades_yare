@@ -24,6 +24,39 @@ try {
     $errorConsulta = true;
     $usuarios = [];
 }
+if (isset($_GET['exportar']) && $_GET['exportar'] === 'xml') {
+    try {
+        $xml = new DOMDocument('1.0', 'UTF-8');
+        $xml->formatOutput = true;
+
+        $raiz = $xml->createElement('usuarios');
+        $xml->appendChild($raiz);
+
+        foreach ($usuarios as $usuario) {
+            $nodoUsuario = $xml->createElement('usuario');
+            $raiz->appendChild($nodoUsuario);
+
+            foreach ($usuario as $campo => $valor) {
+                $nodoCampo = $xml->createElement($campo);
+                $nodoCampo->appendChild(
+                    $xml->createTextNode((string) $valor)
+                );
+                $nodoUsuario->appendChild($nodoCampo);
+            }
+        }
+
+
+        header('Content-Type: application/xml; charset=UTF-8');
+        header('Content-Disposition: attachment; filename="usuarios.xml"');
+        echo $xml->saveXML();
+        exit;
+    } catch (Exception $e) {
+        error_log('No se pudo generar el XML de usuarios: ' . $e->getMessage());
+        http_response_code(500);
+        echo 'Error al generar el archivo XML.';
+        exit;
+    }
+}
 
 function escapar(string $valor): string
 {
@@ -53,11 +86,11 @@ function escapar(string $valor): string
         </div>
         <img src="image/6d629f593d9b985ba4139c0b96dd9da2.jpg" alt="Fondo de la ferretería" class="fondo_encabezado">
         <nav class="container text-center py-3" aria-label="Navegación principal">
-            <a class="btn btn-light btn-sm" href="index.html">Inicio</a>
-            <a class="btn btn-light btn-sm" href="contacto.html">Registrar usuario</a>
-            <a class="btn btn-light btn-sm" href="leer.php">Consultar usuarios</a>
-            <a class="btn btn-light btn-sm" href="editar.php">Editar usuario</a>
-            <a class="btn btn-light btn-sm" href="eliminar.php">Eliminar usuario</a>
+            <a class="btn btn-sm" href="index.html">Inicio</a>
+            <a class="btn btn-sm" href="contacto.html">Registrar usuario</a>
+            <a class="btn btn-sm" href="leer.php">Consultar usuarios</a>
+            <a class="btn btn-sm" href="editar.php">Editar usuario</a>
+            <a class="btn btn-sm" href="eliminar.php">Eliminar usuario</a>
         </nav>
     </header>
 
@@ -111,7 +144,7 @@ function escapar(string $valor): string
                 </table>
             </div>
         <?php } ?>
-        <a href="contacto.html" class="btn btn-primary">Registrar usuario</a>
+        <a href="contacto.html" class="btn">Registrar usuario</a>
     </main>
 
     <footer class="pie">
@@ -141,5 +174,18 @@ function escapar(string $valor): string
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <?php if (!$errorConsulta) { ?>
+    <script>
+        window.addEventListener('load', function () {
+            const enlace = document.createElement('a');
+            enlace.href = 'leer.php?exportar=xml';
+            enlace.download = 'usuarios.xml';
+            enlace.style.display = 'none';
+            document.body.appendChild(enlace);
+            enlace.click();
+            enlace.remove();
+        });
+    </script>
+    <?php } ?>
 </body>
 </html>

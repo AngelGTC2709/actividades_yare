@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xmk version="1.0" ?>
 <pedidos>
-    <pedido>
+    <entrada>
         <noPedido>1</noPedido>
         <noUsuario>1</noUsuario>
         <fecha>2026-11-18</fecha>
-    </pedido>
-    <pedido>
+    </entrada>
+    <entrada>
         <noPedido>2</noPedido>
         <noUsuario>2</noUsuario>
         <fecha>2026-11-19</fecha>
-    </pedido>
+    </entrada>
 </pedidos>

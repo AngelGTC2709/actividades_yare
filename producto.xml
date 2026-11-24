@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xmk version="1.0" ?>
 <productos>
-    <producto>
+    <entrada>
         <noProducto>1</noProducto>
         <nombre>Martillo</nombre>
         <descripcion>Martillo de acero con mango antiderrapante.</descripcion>
         <precio>250</precio>
         <CantidadExistencia>15</CantidadExistencia>
         <noCategoria>1</noCategoria>
-    </producto>
-    <producto>
+    </entrada>
+    <entrada>
         <noProducto>2</noProducto>
         <nombre>Brocas para concreto</nombre>
         <descripcion>Juego de brocas para trabajos de construcción.</descripcion>
         <precio>180</precio>
         <CantidadExistencia>20</CantidadExistencia>
         <noCategoria>2</noCategoria>
-    </producto>
+    </entrada>
 </productos>
